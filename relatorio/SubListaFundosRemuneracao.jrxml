@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubListaDoacaoDetalhada" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="5" bottomMargin="5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.callouts" value="##Tue Oct 03 12:41:47 BST 2017"/>
+	<parameter name="data_inicio" class="java.util.Date"/>
+	<parameter name="data_fim" class="java.util.Date"/>
+	<parameter name="id_destino" class="java.lang.Integer"/>
+	<parameter name="parm_idBanco" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+     tb_saida_destino.`valor` AS tb_saida_destino_valor,
+     tb_destino.`pk_destino` AS tb_destino_pk_destino,
+     tb_destino.`designacao` AS tb_destino_designacao,
+     tb_saida_destino.`data` AS tb_saida_destino_data,
+     tb_saida_destino.`descricao` AS tb_saida_destino_descricao
+FROM
+     `tb_destino` tb_destino INNER JOIN `tb_saida_destino` tb_saida_destino ON tb_destino.`pk_destino` = tb_saida_destino.`fk_destino`
+WHERE
+    tb_destino.`pk_destino` = $P{id_destino}  AND tb_saida_destino.`descricao` LIKE '%Remunera%' AND tb_saida_destino.`data` BETWEEN $P{data_inicio} AND $P{data_fim}]]>
+	</queryString>
+	<field name="tb_saida_destino_valor" class="java.lang.Double"/>
+	<field name="tb_destino_pk_destino" class="java.lang.Integer"/>
+	<field name="tb_destino_designacao" class="java.lang.String"/>
+	<field name="tb_saida_destino_data" class="java.sql.Date"/>
+	<field name="tb_saida_destino_descricao" class="java.lang.String"/>
+	<variable name="TOTAL_DESTINO" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{tb_saida_destino_valor}]]></variableExpression>
+	</variable>
+	<pageHeader>
+		<band height="33">
+			<textField>
+				<reportElement x="0" y="3" width="598" height="30"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tb_destino_designacao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="41" y="0" width="75" height="20"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tb_saida_destino_data}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="683" y="0" width="118" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{tb_saida_destino_valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="116" y="0" width="567" height="20"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tb_saida_destino_descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="41" height="20"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band/>
+	</pageFooter>
+	<summary>
+		<band height="26">
+			<textField pattern="#,##0.00">
+				<reportElement x="683" y="0" width="118" height="19"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{TOTAL_DESTINO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="116" y="0" width="567" height="19"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sub Total]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="41" y="0" width="75" height="19"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="0" width="41" height="19"/>
+			</rectangle>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListagemGeneroCargo" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6900e9cd-5c41-4b81-b4f9-94847af2e778">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="parmTurma" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="parmCurso" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="parmAno" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="parmClasse" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="REPUBLICA" class="java.lang.String"/>
+	<parameter name="REPARTICAO" class="java.lang.String"/>
+	<parameter name="NOME_INTITUCAO" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     estudante.`pk_estudante` AS estudante_pk_estudante,
+     estudante.`nome_completo` AS estudante_nome_completo,
+     estudante.`data_nascimento` AS estudante_data_nascimento,
+     estudante.`telefone` AS estudante_telefone,
+     turma.`pk_turma` AS turma_pk_turma,
+     turma.`designacao` AS turma_designacao,
+     sala.`designacao` AS sala_designacao,
+     turno.`designacao` AS turno_designacao,
+     classe.`designacao` AS classe_designacao,
+     ano_lectivo.`designacao` AS ano_lectivo_designacao,
+     curso.`designacao` AS curso_designacao,
+     estudante.`email` AS estudante_email,
+     sexo.`designacao` AS sexo_designacao,
+     estudante.`nbi` AS estudante_nbi,
+     estudante.`endereco` AS estudante_endereco,
+     confirmacao_matricula.`fk_turma` AS confirmacao_matricula_fk_turma
+FROM
+     `sala` sala INNER JOIN `turma` turma ON sala.`pk_sala` = turma.`fk_sala`
+     INNER JOIN `turno` turno ON turma.`fk_turno` = turno.`pk_turno`
+     INNER JOIN `classe` classe ON turma.`fk_classe` = classe.`pk_classe`
+     INNER JOIN `ano_lectivo` ano_lectivo ON turma.`fk_ano_lectivo` = ano_lectivo.`pk_ano_lectivo`
+     INNER JOIN `curso` curso ON turma.`fk_curso` = curso.`pk_curso`,
+     `sexo` sexo INNER JOIN `estudante` estudante ON sexo.`pk_sexo` = estudante.`fk_sexo`
+     INNER JOIN `confirmacao_matricula` confirmacao_matricula ON estudante.`pk_estudante` = confirmacao_matricula.`fk_estudante`
+WHERE
+     confirmacao_matricula.`fk_turma` = $P{parmTurma}
+ AND turma.`fk_ano_lectivo` = $P{parmAno}
+ AND turma.`fk_classe` = $P{parmClasse}
+ AND turma.`fk_curso` = $P{parmCurso}
+GROUP BY
+     estudante.`pk_estudante`
+ORDER BY  estudante.`nome_completo`]]>
+	</queryString>
+	<field name="estudante_pk_estudante" class="java.lang.Integer"/>
+	<field name="estudante_nome_completo" class="java.lang.String"/>
+	<field name="estudante_data_nascimento" class="java.sql.Date"/>
+	<field name="estudante_telefone" class="java.lang.String"/>
+	<field name="turma_pk_turma" class="java.lang.Integer"/>
+	<field name="turma_designacao" class="java.lang.String"/>
+	<field name="sala_designacao" class="java.lang.String"/>
+	<field name="turno_designacao" class="java.lang.String"/>
+	<field name="classe_designacao" class="java.lang.String"/>
+	<field name="ano_lectivo_designacao" class="java.lang.String"/>
+	<field name="curso_designacao" class="java.lang.String"/>
+	<field name="estudante_email" class="java.lang.String"/>
+	<field name="sexo_designacao" class="java.lang.String"/>
+	<field name="estudante_nbi" class="java.lang.String"/>
+	<field name="estudante_endereco" class="java.lang.String"/>
+	<field name="confirmacao_matricula_fk_turma" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="108" splitType="Stretch">
+			<image>
+				<reportElement uuid="bc4933d9-80ad-4b05-80f2-e638a8da245f" x="235" y="-19" width="113" height="88"/>
+				<imageExpression><![CDATA["../relatorio/logoRelatorio.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement uuid="7fb9d8c1-4ea3-4723-86b7-2c76abe48b61" x="46" y="48" width="473" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REPUBLICA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4acc45d3-9455-4af6-a90b-4f79ef2b005f" x="46" y="86" width="473" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NOME_INTITUCAO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c704cdcc-431a-489c-9cef-2cf90f79efb4" x="46" y="69" width="473" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REPARTICAO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="103" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement uuid="fe333074-da0c-4b3a-8e0f-7515e5118958" x="0" y="37" width="337" height="50"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="bd52f506-1ab3-45c5-a6d9-b773b568c7dd" x="216" y="66" width="44" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Turma:]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement uuid="16287ed1-c61e-447e-9822-e36f97453f11" x="513" y="25" width="40" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="71595c3e-d1fc-4473-ac0e-08894645a6a9" x="433" y="25" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e1a13316-3905-4776-9989-57da1b03e8e6" x="260" y="66" width="68" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{turma_designacao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="dcde4528-af69-46ee-8bcb-ceee8403c306" x="10" y="41" width="62" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ano Lectivo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="5a55acf2-4677-4c16-ba47-ee6777431a1a" x="74" y="41" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ano_lectivo_designacao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8454dc95-f056-40f3-98f3-26978f2e415c" x="216" y="41" width="46" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Classe:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e3c054cf-88df-481b-a725-a526ee4a4e75" x="6" y="66" width="46" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Curso:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="dbc44eb8-d81f-4984-ab0a-30c0b7076254" x="267" y="41" width="61" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{classe_designacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="562b93c4-d103-45b7-bfce-8311a72240c5" x="53" y="66" width="163" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curso_designacao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f6ed3c20-9dd3-4b06-b4e6-bd283ba15b15" x="16" y="-5" width="539" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Listagem de Estudantes por Turma]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="add8e949-6ceb-4b57-862c-9e98588596d2" mode="Opaque" x="278" y="1" width="50" height="19" backcolor="#CCCCCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#333333"/>
+					<topPen lineWidth="0.5" lineColor="#333333"/>
+					<leftPen lineWidth="0.5" lineColor="#333333"/>
+					<bottomPen lineWidth="0.5" lineColor="#333333"/>
+					<rightPen lineWidth="0.5" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data/Nasc.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d109f3a1-4ac8-494d-9571-477dd3c04069" mode="Opaque" x="104" y="1" width="174" height="19" backcolor="#CCCCCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#333333"/>
+					<topPen lineWidth="0.5" lineColor="#333333"/>
+					<leftPen lineWidth="0.5" lineColor="#333333"/>
+					<bottomPen lineWidth="0.5" lineColor="#333333"/>
+					<rightPen lineWidth="0.0" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome Completo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a1d34d4d-2050-4da5-9635-80b2e0499300" mode="Opaque" x="328" y="1" width="131" height="19" backcolor="#CCCCCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#333333"/>
+					<topPen lineWidth="0.5" lineColor="#333333"/>
+					<leftPen lineWidth="0.5" lineColor="#333333"/>
+					<bottomPen lineWidth="0.5" lineColor="#333333"/>
+					<rightPen lineWidth="0.5" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f10312d0-0717-4b8d-8bf9-3180f8e71c9b" mode="Opaque" x="513" y="1" width="41" height="19" backcolor="#CCCCCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#333333"/>
+					<topPen lineWidth="0.5" lineColor="#333333"/>
+					<leftPen lineWidth="0.5" lineColor="#333333"/>
+					<bottomPen lineWidth="0.5" lineColor="#333333"/>
+					<rightPen lineWidth="0.5" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="329b1dd3-b7d1-43fb-b876-ee4ed86dbd4e" mode="Opaque" x="40" y="1" width="64" height="19" backcolor="#CCCCCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#333333"/>
+					<topPen lineWidth="0.5" lineColor="#333333"/>
+					<leftPen lineWidth="0.5" lineColor="#333333"/>
+					<bottomPen lineWidth="0.5" lineColor="#333333"/>
+					<rightPen lineWidth="0.0" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº Matrícula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1a552937-d8e6-4484-8189-0d0ecbd077f4" mode="Opaque" x="0" y="1" width="40" height="19" backcolor="#CCCCCC"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº Ord.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="748998f6-45c7-47cb-8039-55a31c48a7a5" mode="Opaque" x="459" y="1" width="54" height="19" backcolor="#CCCCCC"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Turno:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement uuid="389ca305-b28a-4195-b36e-6b12eb18a87d" x="328" y="0" width="131" height="20"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estudante_telefone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="55d6ff71-413c-4e10-a519-924db5f050c7" x="278" y="0" width="50" height="20"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estudante_data_nascimento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="217b2ac3-bff1-4e01-8cc4-62ed17ddca7e" x="104" y="0" width="174" height="20"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estudante_nome_completo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="128a95f2-b569-4913-aa29-896ff6425901" x="40" y="0" width="64" height="20"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estudante_pk_estudante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e02cacc4-eec8-4f42-8c81-c5d338fe47b7" x="513" y="0" width="41" height="20"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sexo_designacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="cbe9a790-f206-4e9a-b434-a9ca50588c25" x="0" y="1" width="40" height="19"/>
+				<box leftPadding="3">
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b1c30d4d-bf37-421d-b3ab-d93626a30452" x="459" y="0" width="54" height="20"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{turno_designacao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="38" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement uuid="199e053b-4f69-4d7d-a3c7-0366d3298b00" x="144" y="12" width="100" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2d274f50-8f61-493c-8db8-7824ee398164" x="10" y="32" width="543" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Software Desenvolvido por SUPERLC - 990  281 404 / 940 537 124]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ebc8091f-59db-47ad-8a18-bc0341756972" x="10" y="12" width="134" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Processado pelo computador  aos]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

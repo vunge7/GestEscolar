@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio_maior_gasto" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4873fdeb-9505-47e5-9aff-2ccbc6102cf7">
+	<property name="ireport.zoom" value="2.1398375295825014"/>
+	<property name="ireport.x" value="276"/>
+	<property name="ireport.y" value="435"/>
+	<parameter name="parmPkRecibo" class="java.lang.Integer"/>
+	<parameter name="parmAno" class="java.lang.String"/>
+	<parameter name="parmCurso" class="java.lang.String"/>
+	<parameter name="REPUBLICA" class="java.lang.String"/>
+	<parameter name="REPARTICAO" class="java.lang.String"/>
+	<parameter name="NOME_INTITUCAO" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     mes.`designacao` AS mes_designacao,
+     preco_propina.`valor` AS preco_propina_valor,
+     estudante.`nome_completo` AS estudante_nome_completo,
+     recibo_propina.`total` AS recibo_propina_total,
+     recibo_propina.`fk_usuario` AS recibo_propina_fk_usuario,
+     recibo_propina.`desconto` AS recibo_propina_desconto,
+     recibo_propina.`multa` AS recibo_propina_multa,
+     propina.`desconto` AS propina_desconto,
+     propina.`multa` AS propina_multa,
+     recibo_propina.`data` AS recibo_propina_data,
+     recibo_propina.`hora` AS recibo_propina_hora,
+     usuario.`nome_completo` AS usuario_nome_completo,
+     recibo_propina.`pk_recibo_propina` AS recibo_propina_pk_recibo_propina
+FROM
+     `estudante` estudante INNER JOIN `recibo_propina` recibo_propina ON estudante.`pk_estudante` = recibo_propina.`fk_estudante`
+     INNER JOIN `propina` propina ON recibo_propina.`pk_recibo_propina` = propina.`fk_recibo_propina`
+     INNER JOIN `usuario` usuario ON recibo_propina.`fk_usuario` = usuario.`pk_usuario`
+     INNER JOIN `mes` mes ON propina.`fk_mes` = mes.`pk_mes`
+     INNER JOIN `preco_propina` preco_propina ON propina.`fk_preco_propina` = preco_propina.`pk_preco_propina`
+WHERE
+      recibo_propina.`pk_recibo_propina` = $P{parmPkRecibo}]]>
+	</queryString>
+	<field name="mes_designacao" class="java.lang.String"/>
+	<field name="preco_propina_valor" class="java.lang.Double"/>
+	<field name="estudante_nome_completo" class="java.lang.String"/>
+	<field name="recibo_propina_total" class="java.lang.Double"/>
+	<field name="recibo_propina_fk_usuario" class="java.lang.Integer"/>
+	<field name="recibo_propina_desconto" class="java.lang.Double"/>
+	<field name="recibo_propina_multa" class="java.lang.Double"/>
+	<field name="propina_desconto" class="java.lang.Double"/>
+	<field name="propina_multa" class="java.lang.Double"/>
+	<field name="recibo_propina_data" class="java.sql.Date"/>
+	<field name="recibo_propina_hora" class="java.sql.Time"/>
+	<field name="usuario_nome_completo" class="java.lang.String"/>
+	<field name="recibo_propina_pk_recibo_propina" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="132" splitType="Stretch">
+			<image>
+				<reportElement uuid="8043e285-37f6-4ee2-b428-f96d2285456e" x="167" y="8" width="64" height="61"/>
+				<imageExpression><![CDATA["../relatorio/logoRelatorio.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="19f287bc-93f7-4fa0-8b5b-eab1298932e4" x="583" y="7" width="64" height="61"/>
+				<imageExpression><![CDATA["../relatorio/logoRelatorio.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement uuid="48d3f067-7161-42c5-bc6e-9bb06aa9bd34" x="409" y="71" width="393" height="22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REPARTICAO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3e37aeed-dc70-45e1-ad39-d78f6b16a004" x="409" y="55" width="393" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REPUBLICA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="cac043cb-1992-48a2-a624-ee6791106bba" x="409" y="93" width="393" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NOME_INTITUCAO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="31d20586-769f-467e-80cc-2ea9a81f4732" x="7" y="55" width="393" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REPUBLICA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d5b97e8c-05c4-4406-bc2b-bd309578cf01" x="7" y="71" width="393" height="22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REPARTICAO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c64a711c-4fe6-45ae-a777-a04005abd54f" x="7" y="92" width="393" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NOME_INTITUCAO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="107" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="a00bdd50-77fe-45c3-9bca-f76e10fdf22a" x="24" y="26" width="149" height="21"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome do Estudante:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5444a6f8-f5c5-4f15-b790-992a4d6f3260" x="24" y="47" width="149" height="20"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ano Académico:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="20ff3b74-098c-4163-a011-e43037adf746" x="24" y="83" width="149" height="17"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de Pagamento:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="ee440acd-ad4f-4c47-8df4-d7f389ec3f85" x="173" y="26" width="173" height="21"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estudante_nome_completo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="8bf4860d-6f58-44bc-a7e4-597ca7a01f02" x="173" y="83" width="193" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recibo_propina_data}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="60192c8a-c3a5-446f-b884-edb4fe17b791" x="-3" y="-7" width="278" height="18"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RECIBO DE PAGAMENTO DE PROPINA Nº]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5a5ca0b6-8489-4350-a76c-1e5e23bef9eb" x="24" y="67" width="149" height="16"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Curso:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="21f88f6f-bb04-4c08-bda0-53deca73551b" x="173" y="47" width="173" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parmAno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="944106d8-68ba-4325-9ffd-9381c1eefb14" x="173" y="67" width="193" height="16"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parmCurso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c2a7646b-ab0a-4403-a143-30843dac1337" x="275" y="-7" width="27" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recibo_propina_pk_recibo_propina}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3373d3e2-1783-49b7-9361-15b949432b58" x="302" y="-7" width="88" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[/2020]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8a9d933e-9b93-43b8-b85b-b3f968d80dfb" x="0" y="-5" width="389" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[________________________________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="45d0cd06-a250-4c14-8c90-4f38ac88fed4" x="417" y="-3" width="389" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[________________________________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="abe76445-aeb5-44a5-ad5d-7f3b7aa3217c" x="718" y="-3" width="88" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[/2020]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="85270045-14f2-4faa-84a6-d59025258ec1" x="413" y="-3" width="278" height="18"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RECIBO DE PAGAMENTO DE PROPINA Nº]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="0490edde-970e-4296-9fe1-73788e1851d4" x="691" y="-3" width="27" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recibo_propina_pk_recibo_propina}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="9e3a5e9e-9350-449e-9220-ceefc46ea150" x="601" y="83" width="193" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recibo_propina_data}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9c18ed4c-0bb0-416c-b503-48a72af0e3c0" x="452" y="26" width="149" height="21"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome do Estudante:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b5d6223e-07df-47d9-98d0-cb2dc85636f0" x="601" y="47" width="173" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parmAno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c4b0db2d-424e-4175-9fd5-47c27b28a20e" x="601" y="67" width="193" height="16"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parmCurso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e6cd08bf-a1c9-4d66-9fe7-bb33e0fb222f" x="456" y="67" width="145" height="16"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Curso:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="bfd63547-8bb8-483d-b4d6-055c11e14496" x="601" y="26" width="173" height="21"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estudante_nome_completo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="85c0bab5-cbec-477c-841a-246d4596e166" x="452" y="83" width="149" height="17"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de Pagamento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1640d618-e851-4850-94f3-6c9fa46b941d" x="455" y="47" width="146" height="20"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ano Académico:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20">
+			<staticText>
+				<reportElement uuid="dc51b635-3279-4264-a1ef-9bed28a2ed0c" mode="Opaque" x="135" y="0" width="77" height="19" backcolor="#CCCCCC"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Multa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="27ef1661-b8d0-42c5-98f8-aea3461e11be" mode="Opaque" x="319" y="0" width="63" height="19" backcolor="#CCCCCC"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8d9bd538-3c4c-4000-ae29-0dc30f2d08c2" mode="Opaque" x="212" y="0" width="107" height="19" backcolor="#CCCCCC"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desconto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="638e0136-c0d5-4a8a-a669-797c34b572ff" mode="Opaque" x="0" y="0" width="135" height="19" backcolor="#CCCCCC"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mês]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="025c52bb-4c92-41dd-97ae-95d36a40f154" mode="Opaque" x="435" y="0" width="120" height="20" backcolor="#CCCCCC"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mês]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ae0e0ed9-d49b-4e44-ae0b-cff160e352ba" mode="Opaque" x="555" y="0" width="82" height="20" backcolor="#CCCCCC"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Multa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a169aa1a-0560-4006-8fc5-19dbe7282b8b" mode="Opaque" x="744" y="0" width="58" height="20" backcolor="#CCCCCC"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="da21e0d5-19f5-4487-aa89-95f9a528e5fc" mode="Opaque" x="637" y="0" width="107" height="20" backcolor="#CCCCCC"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desconto]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="0bf16284-3ffa-48b3-adfc-535b418345d6" x="135" y="0" width="77" height="15"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{propina_multa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="2b820a54-0c5f-40d2-8cf9-ec1743db9067" x="212" y="0" width="107" height="15"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{propina_desconto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="908d9c45-deb6-4fc8-8f50-8fe84f26f0f6" x="319" y="0" width="63" height="15"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{preco_propina_valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b8b58f36-a815-473b-b990-7600c930e5e5" x="435" y="0" width="120" height="15"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mes_designacao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="69fbae70-5c5c-4c10-9f0c-5d2e6dd3137e" x="555" y="0" width="82" height="15"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{propina_multa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="85fac886-b507-47e4-b442-3f2d6f598017" x="744" y="0" width="58" height="15"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{preco_propina_valor}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="d7840b83-c5e3-4207-8c53-e9e33b2bbbed" x="637" y="0" width="107" height="15"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{propina_desconto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8de37f12-824b-429f-9c3e-0e0a10fd6aaa" x="0" y="0" width="135" height="15"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mes_designacao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="154">
+			<staticText>
+				<reportElement uuid="8f00a50e-81af-4af3-afbf-6da23526e63a" x="7" y="54" width="166" height="22"/>
+				<box leftPadding="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Entreguei]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a025e5e8-b35b-4153-b9d7-6b8a64c8b96d" x="200" y="54" width="166" height="22"/>
+				<box leftPadding="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Recebi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f204057d-4d38-474d-b0aa-86f136d955d4" x="-20" y="76" width="193" height="22"/>
+				<box leftPadding="30"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[________________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1ac9111f-88fa-48be-add2-76f751fbd6f5" x="169" y="76" width="215" height="22"/>
+				<box leftPadding="30"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[________________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="daaf3014-ad69-4c49-ba3e-7b380e014b5c" x="7" y="111" width="153" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<text><![CDATA[Processado pelo computador  aos]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement uuid="b8c6832b-7a07-495b-9565-bb35d755994e" x="157" y="111" width="119" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="71ddba1b-981b-4bb8-9859-3375c2524c26" x="1" y="131" width="381" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<text><![CDATA[  Software Desenvolvido por SUPERLC - 924 281 404 / 940 537 124]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="937c47e9-8359-4b03-9246-af895aa96bcf" x="415" y="131" width="381" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<text><![CDATA[  Software Desenvolvido por SUPERLC - 924 281 404 / 940 537 124]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0fcaa3f4-cb28-435f-9136-9a134f78e1c0" x="394" y="76" width="193" height="22"/>
+				<box leftPadding="30"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[________________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="30e5819a-56e5-450f-a706-f07461dc9225" x="583" y="76" width="215" height="22"/>
+				<box leftPadding="30"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[________________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2c54e001-ef9e-4abe-859b-250cc7cef050" x="420" y="111" width="153" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<text><![CDATA[Processado pelo computador  aos]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement uuid="2bf693e9-b97f-4f7a-8929-bec9fb0b8a68" x="555" y="111" width="119" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b6686615-1719-4028-8cf5-fb18e98b6bb2" x="614" y="54" width="166" height="22"/>
+				<box leftPadding="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Recebi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="49ea331a-1088-4368-af2a-e3b969e0fe23" x="421" y="54" width="166" height="22"/>
+				<box leftPadding="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Entreguei]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7ed56baa-849f-450c-a853-27b36321f539" mode="Opaque" x="242" y="0" width="77" height="16" backcolor="#CCCCCC"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Geral]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="90cc44bb-fde5-449c-8b0b-9a7b079cf06c" x="319" y="0" width="63" height="16"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{preco_propina_valor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

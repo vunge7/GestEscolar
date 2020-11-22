@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0e2e9b9c-d04b-48ec-b333-515aa4e62bb6">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="REPUBLICA" class="java.lang.String"/>
+	<parameter name="REPARTICAO" class="java.lang.String"/>
+	<parameter name="NOME_INTITUCAO" class="java.lang.String"/>
+	<parameter name="TITULO_REPORT" class="java.lang.String"/>
+	<parameter name="CAMINHO_LOGO" class="java.lang.String"/>
+	<title>
+		<band height="133" splitType="Stretch">
+			<textField>
+				<reportElement uuid="d71ce111-1552-4ed3-8ed3-a1ff96f99b9e" x="60" y="71" width="442" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REPARTICAO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="62e7c995-4d49-4f01-b106-f8e68e5f4e48" x="60" y="107" width="442" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TITULO_REPORT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f29b568e-f555-4189-8a33-6ab01f70db45" x="60" y="82" width="442" height="22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NOME_INTITUCAO}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="69420fd1-dad7-43a5-9df9-3c77cdf07ab1" x="237" y="9" width="108" height="54"/>
+				<imageExpression><![CDATA[$P{CAMINHO_LOGO}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement uuid="006f4d99-d48d-414a-9048-1292b24f48b5" x="60" y="57" width="442" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REPUBLICA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

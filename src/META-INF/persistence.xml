@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="Gest_EscolarPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>entity.ReciboPropina</class>
+    <class>entity.Profissao</class>
+    <class>entity.TipoConfirmacao</class>
+    <class>entity.Provincia</class>
+    <class>entity.AnoLectivo</class>
+    <class>entity.PrecoConfirmacao</class>
+    <class>entity.Turma</class>
+    <class>entity.Estudante</class>
+    <class>entity.Sexo</class>
+    <class>entity.Curso</class>
+    <class>entity.Trimestre</class>
+    <class>entity.Turno</class>
+    <class>entity.Encarregado</class>
+    <class>entity.Classe</class>
+    <class>entity.TipoNota</class>
+    <class>entity.Nota</class>
+    <class>entity.Mes</class>
+    <class>entity.Usuario</class>
+    <class>entity.Disciplina</class>
+    <class>entity.Municipio</class>
+    <class>entity.ConfirmacaoMatricula</class>
+    <class>entity.PrecoPropina</class>
+    <class>entity.Propina</class>
+    <class>entity.Sala</class>
+    <class>entity.Pais</class>
+    <class>entity.Professor</class>
+    <class>entity.ItemTurmaProfessorDisciplina</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gestescolardb?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.password" value="DoV90x?#"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+    </properties>
+  </persistence-unit>
+</persistence>

@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio_maior_gasto" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7f55d7d1-ce6f-45b2-90ae-973ea1bb946e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="246"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Abilio Caculo\\Documents\\Projectos-FC\\RH-UAN\\relatorio\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PKESTUDANTE" class="java.lang.Integer"/>
+	<parameter name="REPUBLICA" class="java.lang.String"/>
+	<parameter name="REPARTICAO" class="java.lang.String"/>
+	<parameter name="NOME_INTITUCAO" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     estudante.`pk_estudante` AS estudante_pk_estudante,
+     estudante.`nome_completo` AS estudante_nome_completo,
+     estudante.`data_nascimento` AS estudante_data_nascimento,
+     estudante.`nbi` AS estudante_nbi,
+     estudante.`dataValidadeBI` AS estudante_dataValidadeBI,
+     estudante.`doenca` AS estudante_doenca,
+     estudante.`fk_sexo` AS estudante_fk_sexo,
+     estudante.`fk_encarregado` AS estudante_fk_encarregado,
+     estudante.`fk_municipio` AS estudante_fk_municipio,
+     sexo.`pk_sexo` AS sexo_pk_sexo,
+     sexo.`designacao` AS sexo_designacao,
+     encarregado.`pk_encarregado` AS encarregado_pk_encarregado,
+     encarregado.`nomeCompleto` AS encarregado_nomeCompleto,
+     encarregado.`localTrabalho` AS encarregado_localTrabalho,
+     encarregado.`residencia` AS encarregado_residencia,
+     encarregado.`telefone` AS encarregado_telefone,
+     encarregado.`fk_profissao` AS encarregado_fk_profissao,
+     municipio.`pkmunicipio` AS municipio_pkmunicipio,
+     municipio.`designacao` AS municipio_designacao,
+     municipio.`fk_provincia` AS municipio_fk_provincia,
+     provincia.`pk_provincia` AS provincia_pk_provincia,
+     provincia.`designacao` AS provincia_designacao,
+     profissao.`pk_profissao` AS profissao_pk_profissao,
+     profissao.`designacao` AS profissao_designacao,
+     classe.`pk_classe` AS classe_pk_classe,
+     classe.`designacao` AS classe_designacao,
+     ano_lectivo.`pk_ano_lectivo` AS ano_lectivo_pk_ano_lectivo,
+     ano_lectivo.`designacao` AS ano_lectivo_designacao,
+     turno.`pk_turno` AS turno_pk_turno,
+     turno.`designacao` AS turno_designacao,
+     usuario.`nome_completo` AS usuario_nome_completo,
+     estudante.`nomePai` AS estudante_nomePai,
+     estudante.`nomeMae` AS estudante_nomeMae
+FROM
+     `sexo` sexo INNER JOIN `estudante` estudante ON sexo.`pk_sexo` = estudante.`fk_sexo`
+     INNER JOIN `encarregado` encarregado ON estudante.`fk_encarregado` = encarregado.`pk_encarregado`
+     INNER JOIN `municipio` municipio ON estudante.`fk_municipio` = municipio.`pkmunicipio`
+     INNER JOIN `provincia` provincia ON municipio.`fk_provincia` = provincia.`pk_provincia`
+     INNER JOIN `profissao` profissao ON encarregado.`fk_profissao` = profissao.`pk_profissao`,
+     `classe` classe,
+     `ano_lectivo` ano_lectivo,
+     `turno` turno,
+     `usuario` usuario]]>
+	</queryString>
+	<field name="estudante_pk_estudante" class="java.lang.Integer"/>
+	<field name="estudante_nome_completo" class="java.lang.String"/>
+	<field name="estudante_data_nascimento" class="java.sql.Date"/>
+	<field name="estudante_nbi" class="java.lang.String"/>
+	<field name="estudante_dataValidadeBI" class="java.sql.Date"/>
+	<field name="estudante_doenca" class="java.lang.String"/>
+	<field name="estudante_fk_sexo" class="java.lang.Integer"/>
+	<field name="estudante_fk_encarregado" class="java.lang.Integer"/>
+	<field name="estudante_fk_municipio" class="java.lang.Integer"/>
+	<field name="sexo_pk_sexo" class="java.lang.Integer"/>
+	<field name="sexo_designacao" class="java.lang.String"/>
+	<field name="encarregado_pk_encarregado" class="java.lang.Integer"/>
+	<field name="encarregado_nomeCompleto" class="java.lang.String"/>
+	<field name="encarregado_localTrabalho" class="java.lang.String"/>
+	<field name="encarregado_residencia" class="java.lang.String"/>
+	<field name="encarregado_telefone" class="java.lang.String"/>
+	<field name="encarregado_fk_profissao" class="java.lang.Integer"/>
+	<field name="municipio_pkmunicipio" class="java.lang.Integer"/>
+	<field name="municipio_designacao" class="java.lang.String"/>
+	<field name="municipio_fk_provincia" class="java.lang.Integer"/>
+	<field name="provincia_pk_provincia" class="java.lang.Integer"/>
+	<field name="provincia_designacao" class="java.lang.String"/>
+	<field name="profissao_pk_profissao" class="java.lang.Integer"/>
+	<field name="profissao_designacao" class="java.lang.String"/>
+	<field name="classe_pk_classe" class="java.lang.Integer"/>
+	<field name="classe_designacao" class="java.lang.String"/>
+	<field name="ano_lectivo_pk_ano_lectivo" class="java.lang.Integer"/>
+	<field name="ano_lectivo_designacao" class="java.lang.String"/>
+	<field name="turno_pk_turno" class="java.lang.Integer"/>
+	<field name="turno_designacao" class="java.lang.String"/>
+	<field name="usuario_nome_completo" class="java.lang.String"/>
+	<field name="estudante_nomePai" class="java.lang.String"/>
+	<field name="estudante_nomeMae" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="90" splitType="Stretch">
+			<image>
+				<reportElement uuid="eb1a0541-5b9d-4369-bf20-8142089da27f" x="275" y="-15" width="67" height="61"/>
+				<imageExpression><![CDATA["../relatorio/logoRelatorio.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement uuid="f0b86d17-72e8-42d2-a220-311889f3f65e" x="70" y="32" width="473" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REPUBLICA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b2662db7-a5ac-4fa7-8a50-45bbfcde7763" x="70" y="52" width="473" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REPARTICAO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c7c13b3d-bf14-456f-8875-bb76dd2e56ea" x="70" y="70" width="473" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NOME_INTITUCAO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="775cedb6-df63-4eb0-b1d6-446bef173f3f" x="134" y="1" width="330" height="26"/>
+				<box rightPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ficha de Matrícula]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="568" splitType="Stretch">
+			<textField>
+				<reportElement uuid="4f14f062-dc02-45e8-8ab5-e98e4c61e699" x="10" y="0" width="545" height="306"/>
+				<box leftPadding="113"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
+					<font fontName="Arial" size="11" isBold="false" isUnderline="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<p>Número do Processo: "+" <u>"+$F{estudante_pk_estudante}+"</u>"+"</p>"+
+"<p>Nome do Aluno:       "+" <u>"+$F{estudante_nome_completo}+"</u>"+"</p>"+
+"<p>Filho (a) de: "+"<u>"+$F{estudante_nomePai}+"</u>"+"<br></br>"+"<u> e de:"+$F{estudante_nomeMae}+"</u>"+"</p>"+
+"<p>Nascido (a) aos: "+" <u>"+$F{estudante_data_nascimento}+"</u>"+"</p>"+
+"<p>Município de: "+"<u>"+$F{municipio_designacao} +"</u>"+" Província de: "+"<u>"+$F{provincia_designacao} +"</u>"+" Nº de BI ou céd.: "+"<u>"+$F{estudante_nbi} +"</u>"+" </p>"+
+"<p>Nome do Encarregado de Educação: "+"<u>"+$F{encarregado_nomeCompleto}+"</u>"+"<br></br>"+"<u>"+"Profissão:"+$F{profissao_designacao}+"</u>"+"</p>"+
+"<p>Local de trabalho: "+"<u>"+$F{encarregado_localTrabalho}+"</u>"+"</p>"+
+"<p>Residência: "+"<u>"+$F{encarregado_residencia}+"</u>"+"</p>"+
+"<p>Telefone: "+"<u>"+$F{encarregado_telefone}+"</u>"+"</p>"+
+"<p>Inscreveu-se na classe: "+"<u>"+$F{classe_designacao}+"</u>"+"</p>"+
+"<p>Período: "+"<u>"+$F{turno_designacao}+"</u>"+"</p>"+
+"<p> no ano lectivo de "+"<u>"+$F{ano_lectivo_designacao}+"</u>"+"</p>"+
+"<p>O aluno sofre de alguma doença que lhe impede a assimilação imediata? Sim/Não"+"<u>"+$F{estudante_doenca}
+
+]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="afda4f02-b603-4328-800f-274fd260c576" x="29" y="307" width="171" height="20"/>
+				<textElement/>
+				<text><![CDATA[O Encarregado de Educação]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="0d7a51bf-4c72-439c-a8bf-20fe3f9c6d63" x="45" y="349" width="146" height="14"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{encarregado_nomeCompleto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f9bc40ea-d21a-49a5-a22c-8c2f4ede70d6" x="16" y="327" width="185" height="22"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[________________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2d4d9290-f7bb-423d-ba53-6486a3284feb" x="295" y="327" width="185" height="22"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[________________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8548c2d5-b6b0-4126-8a76-70923308e2f2" x="303" y="307" width="171" height="20"/>
+				<textElement/>
+				<text><![CDATA[A Comissão de Matrícula]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="04d25217-446f-4a94-8828-936ac0bd27db" x="295" y="349" width="185" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{usuario_nome_completo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7e3a4e66-c589-4e04-b4e4-b722622b8fd2" x="-2" y="385" width="557" height="119"/>
+				<box leftPadding="113"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
+					<font fontName="Arial" size="11" isBold="false" isUnderline="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<p>Número do Processo: "+" <u>"+$F{estudante_pk_estudante}+"</u>"+"</p>"+
+"<p>Nome do Aluno:       "+" <u>"+$F{estudante_nome_completo}+"</u>"+"</p>"+
+"<p>Filho (a) de: "+"<u>"+$F{estudante_nomePai}+"</u>"+"<br></br>"+"<u> e de:"+$F{estudante_nomeMae}+"</u>"+"</p>"+
+
+"<p>O aluno sofre de alguma doença que lhe impede a assimilação imediata? Sim/Não"+"<u>"+$F{estudante_doenca}
+
+]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="6702a37a-ade2-4ed6-a7ca-e304e0613599" x="-2" y="363" width="557" height="22"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[________________________________________________________________________________________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6c6c7a15-e67b-42f9-810c-d255df62371e" x="305" y="524" width="185" height="22"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[________________________________________]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="7445709c-5d0f-4a4f-b814-a2679783806b" x="55" y="546" width="146" height="14"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{encarregado_nomeCompleto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="cc1a7471-edee-443a-b7eb-8fe940aa86d7" x="26" y="524" width="185" height="22"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[________________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c0e1a020-cc9b-4367-bd8e-e36403a116fc" x="313" y="504" width="171" height="20"/>
+				<textElement/>
+				<text><![CDATA[A Comissão de Matrícula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d73b8b7f-0b1a-4793-865f-4c7c38bfdcb2" x="39" y="504" width="171" height="20"/>
+				<textElement/>
+				<text><![CDATA[O Encarregado de Educação]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="5bd91cd6-cb7f-4494-b4cd-27f54c044871" x="305" y="546" width="185" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{usuario_nome_completo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="43" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement uuid="d044a8bd-2baa-4747-951d-5db2fb5065e7" x="134" y="0" width="100" height="20"/>
+				<textElement textAlignment="Justified">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9669ddb1-67c6-465a-8a04-d59240df3eef" x="0" y="20" width="543" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Software Desenvolvido por SUPERLC - 924 281 404 / 940 537 124]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a6cf91d0-6eeb-4207-8353-437faf368362" x="0" y="0" width="134" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Processado pelo computador  aos]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>
